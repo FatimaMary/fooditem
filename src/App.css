@@ -1,38 +1,67 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
+  background-image: url(./Images/Back1.jpg);
+  /* background-position: center; */
+  background-size: cover;
+  background-repeat: no-repeat;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.foodentry-container{
   display: flex;
   flex-direction: column;
+  /* background-image: url(./Images/background.png);
+  background-position: center;
+  background-repeat: no-repeat; */
+}
+
+.foodentry-form{
+  margin: 0 20%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  border-radius: 20px;
+  /* background-color: #dad7cd; */
+  /* box-shadow: 0px 0px 4px 4px rgba(0.25, 0.25, 0.25, 0.25); */
+}
+
+.foodentry-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;  
+  gap: 20px;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.foodentry-head {
+  text-align: center;
+  color: #49fca8;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.foodentry-row-label {
+  text-align: left;
+  /* background-color: #49fca8; */
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.foodentry-row-input {
+  padding: 10px;
+  border-radius: 10px;
+  outline: none;
+  /* border: 1px solid #49fca8; */
+}
+
+.foodentry-row-btn {
+  display: flex;
+ align-items: center;
+ justify-content: center;
+ margin-top: 20px;
+}
+
+.foodentry-btn{
+  width: 40%;
+  padding:10px;
+  border-radius: 20px;
+  border: none;
+  background-color: #49fca8;
+  font-size: 16px;
 }
