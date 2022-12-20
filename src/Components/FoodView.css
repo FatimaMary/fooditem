@@ -3,6 +3,26 @@
     flex-direction: column;
 }
 
+.foodview-title{
+    text-align: center;
+    color: rgb(26, 247, 5);
+}
+
+.foodview-btn-div{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 100px;
+    margin-bottom: 10px;
+}
+
+.foodview-btn {
+    width: 10%;
+  padding:10px;
+  border-radius: 20px;
+  border: none;
+  background-color: rgb(0, 255, 81);
+  }
+
 .foodview-table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -17,7 +37,7 @@ th {
     border: 1px solid black;
   }
   
-  td {
+td {
     text-align: left;
     padding: 10px;
     border: 1px solid black;
@@ -36,4 +56,9 @@ tr td:first-child:before
 {
   counter-increment: Serial;      /* Increment the Serial counter */
   content: counter(Serial); /* Display the counter */
+}
+
+.icons {
+    display: flex;
+    justify-content: space-around;
 }

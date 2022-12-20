@@ -50,7 +50,7 @@
   /* border: 1px solid #49fca8; */
 }
 
-.foodentry-row-btn {
+.foodentry-row-btn, .foodview-btn {
   display: flex;
  align-items: center;
  justify-content: center;
