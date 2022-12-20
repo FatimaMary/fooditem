@@ -1,10 +1,17 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import FoodEntry from "./Components/FoodEntry";
+import FoodView from "./Components/FoodView";
 
 const App = () => {
   return (
     <div className="App">
-      <FoodEntry/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<FoodEntry/>} />
+          <Route path="/foodview" element={<FoodView/>}/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

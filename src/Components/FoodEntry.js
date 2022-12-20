@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import StarRating from './StarRating';
+import { useNavigate } from 'react-router-dom';
 
 const getDatafromEntry = () => {
     const entry = localStorage.getItem("data");
@@ -15,6 +16,7 @@ function FoodEntry() {
     const [price, setPrice] = useState();
     const [category, setCategory] = useState();
     const [image, setImage] = useState();
+    const navigate = useNavigate();
 
     const [data, setData] = useState(getDatafromEntry());
 
@@ -36,6 +38,7 @@ function FoodEntry() {
             "data", JSON.stringify([...data, newFoodEntry])
         );
         setData();
+        navigate("/foodview")
     }
 
   return (
