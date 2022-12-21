@@ -5,7 +5,7 @@ import './FoodView.css';
 import { useNavigate } from 'react-router-dom';
 
 const getDatafromEntry = () => {
-    const entry = localStorage.getItem("data");
+    const entry = localStorage.getItem("foodData");
     if (entry) {
       return JSON.parse(entry);
     } else {

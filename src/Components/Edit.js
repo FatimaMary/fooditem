@@ -1,74 +1,101 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import StarRating from './StarRating';
 
-const getDataforSingleEntry = (entryId) => {
-    const data = localStorage.getItem("data");
-    // console.log("getdatafor Single entry:" + data);
-    if (data) {
-      return JSON.parse(data).filter((entry) => {
-        return parseInt(entry.id) === parseInt(entryId);
-      })[0];
-    } else {
-      return {};
-    }
-  };
-  
-  const getTotalDatafromEntry = () => {
-    const data = localStorage.getItem("data");
-    // console.log("getTotaldataentry:" + data);
-    if (data) {
-      return JSON.parse(data);
-    } else {
-      return [];
-    }
-  };
+const getDataforSingleEntry = (id) => {
+  const data = localStorage.getItem("foodData");
+  // console.log("getdatafor Single entry:" + data);
+  if (data) {
+    return JSON.parse(data).filter((entry) => {
+      return parseInt(entry.id) === parseInt(id);
+    })[0];
+  } else {
+    return {};
+  }
+};
+
+const getTotalDatafromEntry = () => {
+  const data = localStorage.getItem("foodData");
+  // console.log("getTotaldataentry:" + data);
+  if (data) {
+    return JSON.parse(data);
+  } else {
+    return [];
+  }
+};
 
 function Edit() {
   const navigate = useNavigate();
   const [searchParam] = useSearchParams();
-  const entryId = searchParam.get("entry");
+  const id = searchParam.get("foodData");
 
   const [totalEntries, setTotalEntries] = useState(getTotalDatafromEntry());
+  const [editEntry, setEditEntry] = useState(getDataforSingleEntry(id));
+  const [name, setName] = useState(editEntry.name);
+  const [price, setPrice] = useState(editEntry.price);
+  const [category, setCategory] = useState(editEntry.category);
+  const [image, setImage] = useState(editEntry.image);
 
-  const [editEntry, setEditEntry] = useState(getDataforSingleEntry(entryId));
-  return (
-    <div className='foodview-container'>
-        <h1 className='foodview-title'>List of Food Items</h1>
-        <div className='foodview-btn-div'>
-          <button className='foodview-btn' onClick={addNewItem}>Add New</button>
-        </div>
-        <table className='foodview-table'>
-          <thead>
-            <tr>
-              <th>S.No</th>
-              <th>Food Item</th>
-              <th>Price</th>
-              <th>Category</th>
-              <th>Image</th>
-              <th>Options</th>
-            </tr>
-          </thead>
-          <tbody>
-          {
-              data.map((food) => (
-                  <tr key={food} className='foodview-table'>
-                    <td></td>
-                    <td>{food.name}</td>
-                    <td>Rs.{food.price}</td>
-                    <td>{food.category}</td>
-                    <td><img src='{food.image}' /></td>
-                    <td className='icons'>
-                            <EditIcon onClick={handleEdit} className="editicon"></EditIcon>
-                            <DeleteIcon onClick={() => handleRemove(food.id)} className='deleteicon'></DeleteIcon>
-                        </td>
-                  </tr>
-              ))
-          }
-          </tbody>
-        </table>
-    </div>
-  
-  )
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let newEdit = {
+      id: editEntry.id,
+      name,
+      price,
+      category,
+      image
+    };
+    console.log(newEdit);
+
+
+    const updatedtotalEntry = totalEntries.map((singleEntry) => {
+      if (parseInt(singleEntry.id) === parseInt(id)) {
+        return newEdit;
+      } else {
+        return singleEntry;
+      }
+    });
+
+    localStorage.setItem("foodData", JSON.stringify(updatedtotalEntry));
+    console.log("updated total entry : " + JSON.stringify(updatedtotalEntry));
+    navigate(`/foodview?data=${editEntry.id}`);
+  };
+
+return (
+  <div className='foodentry-container'>
+    <h1 className='foodentry-head'>Add Food Item</h1>
+    <form className='foodentry-form' onSubmit={handleSubmit}>
+      <div className='foodentry-row'>
+        <label className='foodentry-row-label'>Food Name:</label>
+        <input className='foodentry-row-input' type='text' name='name' value={name} onChange={(e) => setName(e.target.value)} />
+      </div>
+      <div className='foodentry-row'>
+        <label className='foodentry-row-label'>Price:</label>
+        <input className='foodentry-row-input' type='text' name='price' value={price} onChange={(e) => setPrice(e.target.value)} />
+      </div>
+      <div className='foodentry-row'>
+        <label className='foodentry-row-label'>Category:</label>
+        <select className='foodentry-row-input' value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="">Select Category</option>
+          <option value="veg">Veg</option>
+          <option value="Non-Veg">Non-Veg</option>
+        </select>
+      </div>
+      <div className='foodentry-row'>
+        <label className='foodentry-row-label'>Rating:</label>
+        <StarRating className='foodentry-row-input-star' />
+      </div>
+      <div className='foodentry-row'>
+        <label className='foodentry-row-label'>Image</label>
+        <input className='foodentry-row-input' type='file' name="image" value={image} onChange={(e) => setImage(e.target.value)} />
+      </div>
+      <div className='foodentry-row-btn'>
+        <button className='foodentry-btn'>Add to Food list</button>
+      </div>
+    </form>
+  </div>
+
+)
 }
 
 export default Edit

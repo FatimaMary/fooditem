@@ -3,7 +3,7 @@ import StarRating from './StarRating';
 import { useNavigate } from 'react-router-dom';
 
 const getDatafromEntry = () => {
-    const entry = localStorage.getItem("data");
+    const entry = localStorage.getItem("foodData");
     if (entry) {
       return JSON.parse(entry);
     } else {
@@ -24,6 +24,7 @@ function FoodEntry() {
         e.preventDefault();
         console.log("form submited")
         let newFoodEntry = {
+            id: data.length+1,
             name,
             price,
             category,
@@ -35,7 +36,7 @@ function FoodEntry() {
         setImage("");
 
         localStorage.setItem(
-            "data", JSON.stringify([...data, newFoodEntry])
+            "foodData", JSON.stringify([...data, newFoodEntry])
         );
         setData();
         navigate("/foodview")
@@ -58,7 +59,7 @@ function FoodEntry() {
                 <select className='foodentry-row-input' value={category} onChange={(e) => setCategory(e.target.value)}>
                     <option value="">Select Category</option>
                     <option value="veg">Veg</option>
-                    <option value="nv">Non-Veg</option>
+                    <option value="Non-Veg">Non-Veg</option>
                 </select>
             </div>
             <div className='foodentry-row'>
