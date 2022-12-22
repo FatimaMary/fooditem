@@ -24,7 +24,7 @@ function FoodEntry() {
         e.preventDefault();
         console.log("form submited")
         let newFoodEntry = {
-            id: data.length+1,
+            id: data.length +1,
             name,
             price,
             category,

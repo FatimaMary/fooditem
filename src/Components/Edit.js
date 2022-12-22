@@ -8,7 +8,7 @@ const getDataforSingleEntry = (id) => {
   if (data) {
     return JSON.parse(data).filter((entry) => {
       return parseInt(entry.id) === parseInt(id);
-    })[0];
+    });
   } else {
     return {};
   }
@@ -36,7 +36,7 @@ function Edit() {
   const [category, setCategory] = useState(editEntry.category);
   const [image, setImage] = useState(editEntry.image);
 
-  const handleSubmit = (e) => {
+  const handleSubmitEdit = (e) => {
     e.preventDefault();
     let newEdit = {
       id: editEntry.id,
@@ -46,7 +46,7 @@ function Edit() {
       image
     };
     console.log(newEdit);
-
+    // setEditEntry(newEdit);
 
     const updatedtotalEntry = totalEntries.map((singleEntry) => {
       if (parseInt(singleEntry.id) === parseInt(id)) {
@@ -58,13 +58,13 @@ function Edit() {
 
     localStorage.setItem("foodData", JSON.stringify(updatedtotalEntry));
     console.log("updated total entry : " + JSON.stringify(updatedtotalEntry));
-    navigate(`/foodview?data=${editEntry.id}`);
+    navigate(`/foodview=${editEntry.id}`);
   };
 
 return (
   <div className='foodentry-container'>
-    <h1 className='foodentry-head'>Add Food Item</h1>
-    <form className='foodentry-form' onSubmit={handleSubmit}>
+    <h1 className='foodentry-head'>Edit Food Item</h1>
+    <form className='foodentry-form' onSubmit={handleSubmitEdit}>
       <div className='foodentry-row'>
         <label className='foodentry-row-label'>Food Name:</label>
         <input className='foodentry-row-input' type='text' name='name' value={name} onChange={(e) => setName(e.target.value)} />
@@ -90,7 +90,7 @@ return (
         <input className='foodentry-row-input' type='file' name="image" value={image} onChange={(e) => setImage(e.target.value)} />
       </div>
       <div className='foodentry-row-btn'>
-        <button className='foodentry-btn'>Add to Food list</button>
+        <button className='foodentry-btn'>Edit Food list</button>
       </div>
     </form>
   </div>
