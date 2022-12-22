@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import StarRating from './StarRating';
 
-const getDataforSingleEntry = (id) => {
+const getDataforSingleEntry = (foodId) => {
   const data = localStorage.getItem("foodData");
   // console.log("getdatafor Single entry:" + data);
   if (data) {
     return JSON.parse(data).filter((entry) => {
-      return parseInt(entry.id) === parseInt(id);
-    });
+      return parseInt(entry.id) === parseInt(foodId);
+    })[0];
   } else {
     return {};
   }
@@ -27,10 +27,10 @@ const getTotalDatafromEntry = () => {
 function Edit() {
   const navigate = useNavigate();
   const [searchParam] = useSearchParams();
-  const id = searchParam.get("foodData");
+  const foodId = searchParam.get("entry");
 
   const [totalEntries, setTotalEntries] = useState(getTotalDatafromEntry());
-  const [editEntry, setEditEntry] = useState(getDataforSingleEntry(id));
+  const [editEntry, setEditEntry] = useState(getDataforSingleEntry(foodId));
   const [name, setName] = useState(editEntry.name);
   const [price, setPrice] = useState(editEntry.price);
   const [category, setCategory] = useState(editEntry.category);
@@ -49,7 +49,7 @@ function Edit() {
     // setEditEntry(newEdit);
 
     const updatedtotalEntry = totalEntries.map((singleEntry) => {
-      if (parseInt(singleEntry.id) === parseInt(id)) {
+      if (parseInt(singleEntry.id) === parseInt(foodId)) {
         return newEdit;
       } else {
         return singleEntry;
@@ -57,8 +57,8 @@ function Edit() {
     });
 
     localStorage.setItem("foodData", JSON.stringify(updatedtotalEntry));
-    console.log("updated total entry : " + JSON.stringify(updatedtotalEntry));
-    navigate(`/foodview=${editEntry.id}`);
+    // console.log("updated total entry : " + JSON.stringify(updatedtotalEntry));
+    navigate(`/?entry=${editEntry.id}`);
   };
 
 return (
