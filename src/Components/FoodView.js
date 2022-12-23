@@ -18,7 +18,7 @@ function FoodView() {
     const navigate = useNavigate();
 
      const handleEdit = (id) => {
-    navigate(`/edit?entry=${id}`)
+    navigate(`/edit?entry=${id}`);
     // console.log("Clicked")
 }
 
@@ -61,7 +61,7 @@ function FoodView() {
                     <td>{food.category}</td>
                     <td><img src='{food.image}' /></td>
                     <td className='icons'>
-                            <EditIcon onClick={handleEdit(food.id)} className="editicon"></EditIcon>
+                            <EditIcon onClick={() => handleEdit(food.id)} className="editicon"></EditIcon>
                             <DeleteIcon onClick={() => handleRemove(food.id)} className='deleteicon'></DeleteIcon>
                         </td>
                   </tr>

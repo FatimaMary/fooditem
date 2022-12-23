@@ -34,7 +34,7 @@ function Edit() {
   const [name, setName] = useState(editEntry.name);
   const [price, setPrice] = useState(editEntry.price);
   const [category, setCategory] = useState(editEntry.category);
-  const [image, setImage] = useState(editEntry.image);
+  // const [image, setImage] = useState(editEntry.image);
 
   const handleSubmitEdit = (e) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ function Edit() {
       name,
       price,
       category,
-      image
+      // image
     };
     console.log(newEdit);
     // setEditEntry(newEdit);
@@ -58,7 +58,7 @@ function Edit() {
 
     localStorage.setItem("foodData", JSON.stringify(updatedtotalEntry));
     // console.log("updated total entry : " + JSON.stringify(updatedtotalEntry));
-    navigate(`/?entry=${editEntry.id}`);
+    navigate(`/?entry=${editEntry.foodId}`);
   };
 
   return (
@@ -85,10 +85,10 @@ function Edit() {
           <label className='foodentry-row-label'>Rating:</label>
           <StarRating className='foodentry-row-input-star' />
         </div>
-        <div className='foodentry-row'>
+        {/* <div className='foodentry-row'>
           <label className='foodentry-row-label'>Image</label>
           <input className='foodentry-row-input' type='file' name="image" value={image} onChange={(e) => setImage(e.target.value)} />
-        </div>
+        </div> */}
         <div className='foodentry-row-btn'>
           <button className='foodentry-btn'>Edit Food list</button>
         </div>
