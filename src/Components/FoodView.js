@@ -17,17 +17,19 @@ function FoodView() {
     const [data, setData] = useState(getDatafromEntry());
     const navigate = useNavigate();
 
+     const handleEdit = (id) => {
+    navigate(`/edit?entry=${id}`)
+    // console.log("Clicked")
+}
+
+
    const handleRemove = (id) => {
       const entryArr = data.filter((singleEntry) =>{ 
         return parseInt(singleEntry.id) !== parseInt(id)});
       setData(entryArr);
       localStorage.setItem("foodData", JSON.stringify(entryArr));
   }
-  const handleEdit = (id) => {
-    navigate(`/edit?entry=${id}`)
-    // console.log("Clicked")
-}
-
+ 
   const addNewItem = () => {
     navigate ("/foodentry")
   }
