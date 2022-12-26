@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import './FoodView.css';
 import { useNavigate } from 'react-router-dom';
 
-const getDatafromEntry = () => {
+const getDatafromEntry = ( ) => {
     const data = localStorage.getItem("foodData");
     if (data) {
       return JSON.parse(data);
@@ -13,13 +13,20 @@ const getDatafromEntry = () => {
     }
   };
 
+  
+
 function FoodView() {
     const [data, setData] = useState(getDatafromEntry());
+    const [image, uploading] = useState(getDatafromEntry(data.image));
     const navigate = useNavigate();
 
      const handleEdit = (id) => {
     navigate(`/edit?entry=${id}`);
     // console.log("Clicked")
+}
+const imgFilehandler = (e) => {
+  uploading(URL.createObjectURL(e.target.files[0]))
+  // console.log("image selected")
 }
 
 
@@ -59,7 +66,7 @@ function FoodView() {
                     <td>{food.name}</td>
                     <td>Rs.{food.price}</td>
                     <td>{food.category}</td>
-                    <td><img src='{food.image}' /></td>
+                    <td><img src={image} height="100" width="100" alt="preview"/></td>
                     <td className='icons'>
                             <EditIcon onClick={() => handleEdit(food.id)} className="editicon"></EditIcon>
                             <DeleteIcon onClick={() => handleRemove(food.id)} className='deleteicon'></DeleteIcon>

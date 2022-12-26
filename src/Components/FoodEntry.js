@@ -19,6 +19,11 @@ function FoodEntry() {
     const navigate = useNavigate();
 
     const [data, setData] = useState(getDatafromEntry());
+    const imgFilehandler = (e) => {
+        setImage(URL.createObjectURL(e.target.files[0]))
+        // console.log("image selected")
+      }
+      
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -68,7 +73,7 @@ function FoodEntry() {
             </div>
             <div className='foodentry-row'>
                 <label className='foodentry-row-label'>Image</label>
-                <input className='foodentry-row-input' type='file' name="image" value={image} onChange={(e) => setImage(e.target.value)}/>
+                <input className='foodentry-row-input' type='file' name="image" value={image} onChange={imgFilehandler}/>
             </div>
             <div className='foodentry-row-btn'>
             <button className='foodentry-btn'>Add to Food list</button>
